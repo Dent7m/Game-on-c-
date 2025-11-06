@@ -2,6 +2,7 @@
 #include "windows.h"
 #include "MainClass.h"
 #include "BasicClasses.h"
+#include "Evil.h"
 
 using namespace std;
 
@@ -19,25 +20,22 @@ int main()
     Paladin* paladin = new Paladin();
     Player* player = new Player();
 
-    cout << "Привет, путник\nПрисядь у костра и расскажи о себе\n";
-    cout << "Ты впервые тут? (1 - новый персонаж, 2 - загрузить)\n";
+    cout << "РџСЂРёРІРµС‚, РїСѓС‚РЅРёРє\nРџСЂРёСЃСЏРґСЊ Сѓ РєРѕСЃС‚СЂР° Рё СЂР°СЃСЃРєР°Р¶Рё Рѕ СЃРµР±Рµ\n";
+    cout << "РўС‹ РІРїРµСЂРІС‹Рµ С‚СѓС‚? (1 - РЅРѕРІС‹Р№ РїРµСЂСЃРѕРЅР°Р¶, 2 - Р·Р°РіСЂСѓР·РёС‚СЊ)\n";
     unsigned short choise = 1;
-    //создать уникальную функцию для проверки условия выбора
     cin >> choise;
     while (choise > 2 || choise < 1)
     {
-        cout << "Наверное ты ошибся, повтори снова\n";
+        cout << "РќР°РІРµСЂРЅРѕРµ С‚С‹ РѕС€РёР±СЃСЏ, РїРѕРІС‚РѕСЂРё СЃРЅРѕРІР°\n";
         cin >> choise;
     }
     if (choise == 1)
     {
-        cout << "Расскажи о своих навыках\n\t1 - Воин\n\t2 - Волшебник\n\t3 - Паладин\n";
-
-        // тут уже будет вызвана ваша красивая функция
+        cout << "Р Р°СЃСЃРєР°Р¶Рё Рѕ СЃРІРѕРёС… РЅР°РІС‹РєР°С…\n\t1 - Р’РѕРёРЅ\n\t2 - Р’РѕР»С€РµР±РЅРёРє\n\t3 - РџР°Р»Р°РґРёРЅ\n";
         cin >> choise;
         while (choise > 3 || choise < 1)
         {
-            cout << "Такого еще не было в наших краях\nНе мог бы ты повторить\n";
+            cout << "РўР°РєРѕРіРѕ РµС‰Рµ РЅРµ Р±С‹Р»Рѕ РІ РЅР°С€РёС… РєСЂР°СЏС…\nРќРµ РјРѕРі Р±С‹ С‚С‹ РїРѕРІС‚РѕСЂРёС‚СЊ\n";
             cin >> choise;
         }
 
@@ -58,7 +56,6 @@ int main()
             warrior = nullptr;
             delete paladin;
             paladin = nullptr;
-            cout << " " << endl;
             break;
         }
         case 3: {
@@ -78,7 +75,7 @@ int main()
         player->Load(warrior);
     }
 
-    cout << "сделаем остановку тут?\n\t1 - сохранить игру\n\t2 - продолжить\n";
+    cout << "СЃРґРµР»Р°РµРј РѕСЃС‚Р°РЅРѕРІРєСѓ С‚СѓС‚?\n\t1 - СЃРѕС…СЂР°РЅРёС‚СЊ РёРіСЂСѓ\n\t2 - РїСЂРѕРґРѕР»Р¶РёС‚СЊ\n";
     cin >> choise;
     if (choise == 1)
     {
@@ -97,7 +94,7 @@ unsigned short GetChoice(unsigned short first, unsigned short last)
     unsigned short choice;
     cin >> choice;
     while (choice < first || choice > last) {
-        cout << "Неверный ввод! Введите число от " << first << " до " << last;
+        cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ! Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ " << first << " РґРѕ " << last;
         cout << endl;
         cin >> choice;
     }
