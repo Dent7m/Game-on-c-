@@ -4,6 +4,65 @@
 #include "BasicClasses.h"
 #include "Evil.h"
 
+enum class ValueQuality
+{
+    мусор, обычное, редкое, легендарное, мифическое //эквивалент перечисления чисел
+};
+
+//отличие struct от class
+/**/
+struct Treasure //по умолчанию все внутри public
+{
+    string name{ "добыча" };
+    ValueQuality quality = ValueQuality::мусор;
+    unsigned int price{ 0 };
+    Treasure(ValueQuality quality)
+    {
+        switch (quality)
+        {
+        case ValueQuality::мусор:
+            cout << "Плохое качество\n";
+            break;
+        case ValueQuality::обычное:
+            cout << "Обычное качество\n";
+            break;
+        case ValueQuality::редкое:
+            cout << "Хорошое качество\n";
+            break;
+        case ValueQuality::легендарное:
+            cout << "Отличное качество\n";
+            break;
+        case ValueQuality::мифическое:
+            cout << "Божественное качество\n";
+            break;
+        default:
+            break;
+        }
+    }
+};
+struct Cloth : Treasure //наследование по умолчанию public
+{
+    Cloth(ValueQuality quaity) : Treasure(quality) {};
+    string valueSite[5]{ "обувь","перчатки","шлем","нагрудник","пояс" };
+    string site{ NULL };
+    unsigned short armor{ 1 };
+};
+
+/*
+class Treasure //все по умолчанию внутри private
+{
+public:
+    string name{ "добыча" };
+    string quality[5]{ "мусор","обычное","редкое","легендарное","мифическое" };
+    unsigned int price{ 0 };
+};
+class Cloth : Treasure //наследование по умолчанию private
+{
+    string valueSite[5]{ "обувь","перчатки","шлем","нагрудник","пояс" };
+    string site{ NULL };
+    unsigned short armor{ 1 };
+};*/
+
 using namespace std;
 
 int main()
@@ -11,6 +70,18 @@ int main()
     setlocale(LC_ALL, "Rus");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
+
+    /*Treasure treasure;
+    treasure.name = "древняя тарелка";
+    treasure.price = 30;
+    treasure.quality = treasure.valuequality[3];
+    cout << treasure.name << '\n' << treasure.price << '\n' << treasure.quality << '\n';*/
+    Cloth cloth(ValueQuality::мифическое);
+    cloth.armor = 10;
+    cloth.site = cloth.valueSite[2];
+    cloth.name = "Шлем лорда повелителя";
+    cloth.price = 50;
+    cout << cloth.name << '\n' << cloth.site << '\n' << cloth.armor << '\n' << cloth.price << '\n';
 
     Warrior* warrior = new Warrior();
     Warrior* warrior2 = new Warrior();
@@ -80,7 +151,7 @@ int main()
     if (choise == 1)
     {
         if (warrior != nullptr) player->Save(warrior);
-        if (wizard != nullptr) player->Save(wizard);
+        if (wizard != nullptr)player->Save(wizard);
         if (paladin != nullptr) player->Save(paladin);
     }
 
