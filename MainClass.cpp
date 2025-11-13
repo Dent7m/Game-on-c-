@@ -1,4 +1,4 @@
-#include "MainClass (1).h"
+#include "MainClass.h"
 
 string Npc::GetName() const
 {
@@ -95,3 +95,4 @@ Npc* Player::GetCharacter()
 {
     return currentCharacter.get();
 }
+
