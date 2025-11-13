@@ -15,23 +15,25 @@ protected: //модификатор 0 защищенный (дает досту�
     unsigned short lvl{ 1 };
 
 public:    //публичный модификатор доступ (использовать метод можно в любом месте)
-    string GetName();
-    unsigned int GetHealth();
-    float GetDamage();
-    unsigned int GetLvl();
+    string GetName() const;
+    unsigned int GetHealth() const;
+    float GetDamage() const;
+    unsigned int GetLvl() const;
     virtual void GetInfo();
-
     virtual void Create() {};
+    
     virtual bool Save();
-
-    Npc Load();
-
+    virtual bool Load();
+    virtual ~Npc() = default; //default - по умолчанию, чтобы не писать {} тело пустое
 };
 class Player
 {
+private:
+    unique_ptr<Npc> currentCharacter{ nullptr }; //unique_ptr уникальный указатель, указывает на один объект
 public:
-    void Create(Npc* player);
-    void Save(Npc* player);
-    void Load(Npc* player);
-
+    void Create(unique_ptr<Npc> player);
+    void Create();
+    bool Save();
+    bool Load(unique_ptr<Npc> player);
+    Npc* GetCharacter();
 };
