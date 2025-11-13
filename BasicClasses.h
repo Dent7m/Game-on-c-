@@ -1,5 +1,5 @@
 #pragma once
-#include "MainClass (1).h"
+#include "MainClass.h"
 
 class Warrior : public virtual Npc 
 {
@@ -175,3 +175,4 @@ public:
         }
     }
 };
+
