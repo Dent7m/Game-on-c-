@@ -1,12 +1,21 @@
 #include <iostream>
 #include "windows.h"
-#include "MainClass.h"
-#include "BasicClasses.h"
+#include "MainClass (1).h"
+#include "BasicClasses (1).h"
 #include "Evil.h"
 
 enum class ValueQuality
 {
     мусор, обычное, редкое, легендарное, мифическое //эквивалент перечисления чисел
+};
+
+enum class Wapon
+{
+    
+};
+enum class Spallo
+{
+    
 };
 
 //отличие struct от class
@@ -150,8 +159,8 @@ int main()
     cin >> choise;
     if (choise == 1)
     {
-        if (warrior != nullptr) player->Save(warrior);
-        if (wizard != nullptr)player->Save(wizard);
+        if (warrior != nullptr)player->Save(warrior);
+        if (wizard != nullptr) player->Save(wizard);
         if (paladin != nullptr) player->Save(paladin);
     }
 
