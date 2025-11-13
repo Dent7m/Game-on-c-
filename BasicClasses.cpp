@@ -1,4 +1,59 @@
 #include "BasicClasses.h"
+#include "MainClass.cpp"
+
+Warrior::Warrior() 
+{
+    name = "Ð²Ð¾Ð¸Ð½";
+    health = 35;
+    damage = 10;
+}
+Warrior::Warrior(string name, unsigned int health, float damage)
+{
+    cout << "ÐºÐ°ÑÑ‚Ð¾Ð¼Ð½Ñ‹Ð¹ ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ð²Ð¾Ð¹Ð½Ð°" << endl;
+    this->name = name;
+    this->health = health;
+    this->damage = damage;
+}
+
+void Warrior::GetWeapons()
+{
+    cout << name << " Ð²Ð·ÑÐ» Ð² Ñ€ÑƒÐºÐ¸ " << weapons[lvl - 1];
+}
+void Warrior::GetInfo()   
+{
+    Npc::GetInfo();
+    cout << "Ð¡Ð¸Ð»Ð° - " << strenght << endl;
+    cout << "Ð”Ð¾ÑÑ‚ÑƒÐ¿Ð½Ð¾Ðµ Ð¾Ñ€ÑƒÐ¶Ð¸Ðµ - ";
+    for (int i = 0; i < lvl; i++) //Ð½ÑƒÐ¶Ð½Ð¾ Ð¸ÑÐ¿Ñ€Ð¾Ð²Ð°Ð¸Ñ‚ÑŒ Ñ‡ÐµÑ€ÐµÐ· ÑƒÑÐ»Ð¾Ð²Ð¸Ðµ
+    {
+        cout << weapons[i] << endl;
+    }
+}
+void Warrior::Create()
+{
+    cout << "Ð’Ñ‹ ÑÐ¾Ð·Ð´Ð°Ð»Ð¸ Ð²Ð¾Ð¹Ð½Ð°" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð¿ÐµÑ€ÑÐ¾Ð½Ð°Ð¶Ð°\t";
+    cin >> name;
+    GetInfo();
+    GetWeapons();
+}
+bool Warrior::operator == (const Warrior& warrior) const
+{
+    return (warrior.damage == this->damage) && 
+           (warrior.health == this->health) && 
+           (warrior.strenght == this->strenght);
+}
+Warrior& Warrior::operator = (const Npc& npc) 
+{
+    if (this != &npc)
+    {
+        this->name = npc.GetName();
+        this->health = npc.GetHealth();
+        this->damage = npc.GetDamage();
+        this->lvl = npc.GetLvl();
+        return *this;
+    }
+}
 
 bool Warrior::Save()
 {
@@ -7,97 +62,46 @@ bool Warrior::Save()
         ofstream saveSystem("save.bin", ios::binary);
         if (saveSystem.is_open())
         {
-
-            saveSystem.write(reinterpret_cast<const char*>(&strenght), sizeof(strenght));
-            for (int i = 0; i < 4; i++)
+            if (!Npc::Save())
             {
-                saveSystem.write(reinterpret_cast<const char*>(&weapons[i]), sizeof(weapons[i]));
+                cout << "Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð½Ðµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ" << endl;
+                return false;
             }
+            saveSystem.write(reinterpret_cast<const char*>(&strenght), sizeof(strenght));
+          
             saveSystem.close();
             return true;
         }
         else
         {
-            cout << "Ñîõðàíåíèå íå óäàëîñü" << endl;
+            cout << "Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð½Ðµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ" << endl;
             return false;
         }
     }
 };
-Warrior Warrior::Load()
+
+bool Warrior::Load()
 {
     ifstream loadSystem("save.bin", ios::binary);
-    Warrior warrior; //âðåìåííîå õðàíèëèùå äëÿ ñ÷èòûâàíèÿ äàííûõ èç ôàéëà
-    warrior = Npc::Load();
     if (loadSystem.is_open())
     {
-        loadSystem.read(reinterpret_cast<char*>(&strenght), sizeof(strenght));
-        for (int i = 0; i < 4; i++)
+        if (!Npc::Load())
         {
-            loadSystem.read(reinterpret_cast<char*>(&weapons[i]), sizeof(weapons[i]));
+            cout << "Ð¡Ð²ÑÐ·ÑŒ Ñ Ð½ÐµÐ±Ð¾Ð¼ Ð½Ð°Ñ€ÑƒÑˆÐµÐ½Ð°\nÐŸÐ°Ð¼ÑÑ‚ÑŒ ÑƒÑ‚ÐµÑ€ÐµÐ½Ð°" << endl;
+            return false;
         }
+        loadSystem.read(reinterpret_cast<char*>(&strenght), sizeof(strenght));
     }
     else
     {
-        cout << "Ñâÿçü ñ íåáîì íàðóøåíà\nÏàìÿòü óòåðåíà" << endl;
-        return warrior;
+        cout << "Ð¡Ð²ÑÐ·ÑŒ Ñ Ð½ÐµÐ±Ð¾Ð¼ Ð½Ð°Ñ€ÑƒÑˆÐµÐ½Ð°\nÐŸÐ°Ð¼ÑÑ‚ÑŒ ÑƒÑ‚ÐµÑ€ÐµÐ½Ð°" << endl;
+        return false;
     }
     loadSystem.close();
-    return warrior;
-
-
+    return true;
 };
-
-
-Warrior::Warrior() 
-{
-    name = "âîèí";
-    health = 35;
-    damage = 10;
-}
-Warrior::Warrior(string name, unsigned int health, float damage)
-{
-    cout << "êàñòîìíûé êîíñòðóêòîð âîéíà" << endl;
-    this->name = name;
-    this->health = health;
-    this->damage = damage;
-}
-
-void Warrior::GetWeapons()
-{
-    cout << name << " âçÿë â ðóêè " << weapons[lvl - 1];
-}
-void Warrior::GetInfo()   
-{
-    Npc::GetInfo();
-    cout << "Ñèëà - " << strenght << endl;
-    cout << "Äîñòóïíîå îðóæèå - ";
-    for (int i = 0; i < lvl; i++)
-    {
-        cout << weapons[i] << endl;
-    }
-}
-void Warrior::Create()
-{
-    cout << "Âû ñîçäàëè âîéíà" << endl;
-    cout << "Ââåäèòå èìÿ ïåðñîíàæà\t";
-    cin >> name;
-    GetInfo();
-    GetWeapons();
-}
-bool Warrior::operator == (const Warrior& warrior) const
-{
-    return ((warrior.damage == this->damage) && (warrior.health == this->health)
-        && (warrior.strenght == this->strenght));
-}
-void Warrior::operator = (Npc npc)
-{
-    this->name = npc.GetName();
-    this->name = npc.GetHealth();
-    this->name = npc.GetDamage();
-    this->name = npc.GetLvl();
-}
 
 Warrior::~Warrior() 
 {
-    cout << name << " ïàë ñìåðòüþ õðàáðûõ" << endl;
+    cout << name << " Ð¿Ð°Ð» ÑÐ¼ÐµÑ€Ñ‚ÑŒÑŽ Ñ…Ñ€Ð°Ð±Ñ€Ñ‹Ñ…" << endl;
 }
