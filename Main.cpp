@@ -1,9 +1,8 @@
 #include <iostream>
 #include "windows.h"
-#include "MainClass (1).h"
-#include "BasicClasses (1).h"
+#include "MainClass.h"
+#include "BasicClasses.h"
 #include "Evil.h"
-#include "Main (1).h"
 
 using namespace std;
 
@@ -376,3 +375,4 @@ unsigned short GetChoice(unsigned short first, unsigned short last)
     return choice;
 
 }
+
