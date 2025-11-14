@@ -3,21 +3,128 @@
 #include "MainClass (1).h"
 #include "BasicClasses (1).h"
 #include "Evil.h"
+#include "Main (1).h"
+
+using namespace std;
+
+/*class Product
+{
+public: Product() = default;
+};
+
+class Bread : public Product
+{
+public: Bread() = default;
+};
+
+class Chips : public Product
+{
+public: Chips() = default;
+};
+
+class Creator
+{
+public: 
+    Creator() = default;
+    virtual Product FactoryMethod() { return Product(); }
+};
+
+class BreadCreator : Creator
+{
+public:
+    BreadCreator() = default;
+    Product FactoryMethod() override { return Bread(); }
+};
+class ChipsCreator : Creator
+{
+public:
+    ChipsCreator() = default;
+    Product FactoryMethod() override { return Chips(); }
+};*/ //пример написания
 
 enum class ValueQuality
 {
     мусор, обычное, редкое, легендарное, мифическое //эквивалент перечисления чисел
 };
 
-enum class Wapon
+enum class WaponClass
 {
-    
+   алебарда, клеймор, катана, лук, арбалет
 };
-enum class Spallo
+enum class SpalloClass
 {
-    
+    кровавый_дождь, метеор, святое_солнце, испепеляющий_гимн, хор_поднебесья
 };
 
+enum class CharacterType
+{
+        UNKNOWN = 0,
+        WARRIOR,
+        WIZARD,
+        PALADIN
+};
+
+struct Wapon
+{
+    string name{ "Оружие" };
+    WaponClass wclass = WaponClass::алебарда;
+    unsigned int price { 0 };
+    string valueSite[5]{ "Алебарда","Клеймор","Катана","Лук","Арбалет" };
+    string site{ NULL };
+    unsigned short damage{ 1 };
+    Wapon(WaponClass wclass)
+    {
+        switch (wclass)
+        {
+        case WaponClass::алебарда:
+            cout << "Алебарда\n";
+            break;
+        case WaponClass::клеймор:
+            cout << "Клеймор\n";
+            break;
+        case WaponClass::катана:
+            cout << "Катана\n";
+            break;
+        case WaponClass::лук:
+            cout << "Лук\n";
+            break;
+        case WaponClass::арбалет:
+            cout << "Арбалет\n";
+            break;
+        default:
+            break;
+        }
+    };
+};
+struct Spallo
+{
+    string name{ "Магия" };
+    SpalloClass sclass = SpalloClass::кровавый_дождь;
+    unsigned int price{ 0 };
+    Spallo(SpalloClass sclass)
+    {
+        switch (sclass)
+        {
+        case SpalloClass::кровавый_дождь:
+            cout << "\n";
+            break;
+        case SpalloClass::метеор:
+            cout << "\n";
+            break;
+        case SpalloClass::святое_солнце:
+            cout << "\n";
+            break;
+        case SpalloClass::испепеляющий_гимн:
+            cout << "\n";
+            break;
+        case SpalloClass::хор_поднебесья:
+            cout << "\n";
+            break;
+        default:
+            break;
+        }
+    };
+};
 //отличие struct от class
 /**/
 struct Treasure //по умолчанию все внутри public
@@ -72,7 +179,60 @@ class Cloth : Treasure //наследование по умолчанию privat
     unsigned short armor{ 1 };
 };*/
 
-using namespace std;
+/*unique_ptr<Npc>CreateWapon(WaponClass wclass)
+{
+    switch (wclass)
+    {
+    case WaponClass::алебарда:
+        //return make_unique<алебарда>()
+        break;
+    case WaponClass::клеймор:
+        break;
+    case WaponClass::катана:
+        break;
+    case WaponClass::лук:
+        break;
+    case WaponClass::арбалет:
+        break;
+    default:
+        invalid_argument("Неизвестный тип оружия");
+        break;
+    }
+}*/
+
+unique_ptr<Npc> CreateCharacter(CharacterType type)
+{
+    switch (type)
+    {
+    case CharacterType::UNKNOWN:
+        return make_unique<Npc>();
+        break;
+    case CharacterType::WARRIOR:
+        return make_unique<Warrior>();
+        break;
+    case CharacterType::WIZARD:
+        return make_unique<Wizard>();
+        break;
+    case CharacterType::PALADIN:
+        return make_unique<Paladin>();
+        break;
+    default:
+        invalid_argument("Неизветсный тип персонажа");
+        break;
+    }
+}
+
+unsigned short TestChoise(unsigned short maxChoise, string text)
+{
+    unsigned short choise = 1;
+    cin >> choise;
+    while (choise > maxChoise || choise < 1)
+    {
+        cout << text << endl;
+        cin >> choise;
+    }
+    return choise;
+}
 
 int main()
 {
@@ -85,24 +245,60 @@ int main()
     treasure.price = 30;
     treasure.quality = treasure.valuequality[3];
     cout << treasure.name << '\n' << treasure.price << '\n' << treasure.quality << '\n';*/
-    Cloth cloth(ValueQuality::мифическое);
+    
+    /*Cloth cloth(ValueQuality::мифическое);
     cloth.armor = 10;
     cloth.site = cloth.valueSite[2];
     cloth.name = "Шлем лорда повелителя";
     cloth.price = 50;
     cout << cloth.name << '\n' << cloth.site << '\n' << cloth.armor << '\n' << cloth.price << '\n';
 
-    Warrior* warrior = new Warrior();
-    Warrior* warrior2 = new Warrior();
-    cout << (*warrior == *warrior2) << endl;
+    Wapon wapon(WaponClass::катана);
+    wapon.damage = 10;
+    wapon.site = wapon.valueSite[2];
+    wapon.name = "Кровавый дайме";
+    wapon.price = 50;
+    cout << wapon.name << '\n' << wapon.site << '\n' << wapon.damage << '\n' << wapon.price << '\n';*/
 
-    Wizard* wizard = new Wizard();
-    Paladin* paladin = new Paladin();
     Player* player = new Player();
 
     cout << "Привет, путник\nПрисядь у костра и расскажи о себе\n";
     cout << "Ты впервые тут? (1 - новый персонаж, 2 - загрузить)\n";
-    unsigned short choise = 1;
+    if (TestChoise(2, "Наверное ты ошибся, повтори снова\n"))
+    {
+        cout << "Расскажи о своих навыках\n\t1 - Воин\n\t2 - Волшебник\n\t3 - Паладин\n";
+        unique_ptr<Npc> character;
+        switch (TestChoise(3, "Такого еще не было в наших краях\nНе мог бы ты повторить\n"))
+        {
+        case 1:
+            character = CreateCharacter(CharacterType::WARRIOR);
+            break;
+        case 2:
+            character = CreateCharacter(CharacterType::WIZARD);
+            break;
+        case 3:
+            character = CreateCharacter(CharacterType::PALADIN);
+            break;
+        }
+        player->Create(move(character));
+    }
+    else
+    {
+        ifstream loadSystem("save.bin", ios::binary);
+        if (!loadSystem.is_open())
+        {
+            {
+                size_t nameLenght;
+                loadSystem.read(reinterpret_cast<char*>(&nameLenght), sizeof(nameLenght));
+                char* buffer = new char[nameLenght + 1];
+                loadSystem.read(buffer, nameLenght);
+                buffer[nameLenght] = '\0';
+               
+                return loadSystem.good();
+            }
+        }
+    }
+    /*unsigned short choise = 1;
     cin >> choise;
     while (choise > 2 || choise < 1)
     {
@@ -118,7 +314,6 @@ int main()
             cout << "Такого еще не было в наших краях\nНе мог бы ты повторить\n";
             cin >> choise;
         }
-
 
         switch (choise)
         {
@@ -159,10 +354,10 @@ int main()
     cin >> choise;
     if (choise == 1)
     {
-        if (warrior != nullptr)player->Save(warrior);
+        if (warrior != nullptr) player->Save(warrior);
         if (wizard != nullptr) player->Save(wizard);
         if (paladin != nullptr) player->Save(paladin);
-    }
+    }*/
 
 
 
