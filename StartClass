@@ -1,5 +1,5 @@
 #pragma once
-#include "StartClasses.h"
+#include "BaseClasses.h"
 #include <string>
 
 class Warrior : public virtual Npc //íàñëåäîâàíèå ñ ìîäèôèêàòîðîì äîñòóïà public
