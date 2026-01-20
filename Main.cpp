@@ -23,7 +23,7 @@ public: Chips() = default;
 
 class Creator
 {
-public: 
+public:
     Creator() = default;
     virtual Product FactoryMethod() { return Product(); }
 };
@@ -48,7 +48,7 @@ enum class ValueQuality
 
 enum class WaponClass
 {
-   алебарда, клеймор, катана, лук, арбалет
+    алебарда, клеймор, катана, лук, арбалет
 };
 enum class SpalloClass
 {
@@ -57,17 +57,17 @@ enum class SpalloClass
 
 enum class CharacterType
 {
-        UNKNOWN = 0,
-        WARRIOR,
-        WIZARD,
-        PALADIN
+    UNKNOWN = 0,
+    WARRIOR,
+    WIZARD,
+    PALADIN
 };
 
 struct Wapon
 {
     string name{ "Оружие" };
     WaponClass wclass = WaponClass::алебарда;
-    unsigned int price { 0 };
+    unsigned int price{ 0 };
     string valueSite[5]{ "Алебарда","Клеймор","Катана","Лук","Арбалет" };
     string site{ NULL };
     unsigned short damage{ 1 };
@@ -244,7 +244,7 @@ int main()
     treasure.price = 30;
     treasure.quality = treasure.valuequality[3];
     cout << treasure.name << '\n' << treasure.price << '\n' << treasure.quality << '\n';*/
-    
+
     /*Cloth cloth(ValueQuality::мифическое);
     cloth.armor = 10;
     cloth.site = cloth.valueSite[2];
@@ -292,7 +292,7 @@ int main()
                 char* buffer = new char[nameLenght + 1];
                 loadSystem.read(buffer, nameLenght);
                 buffer[nameLenght] = '\0';
-               
+
                 return loadSystem.good();
             }
         }
@@ -375,4 +375,3 @@ unsigned short GetChoice(unsigned short first, unsigned short last)
     return choice;
 
 }
-
