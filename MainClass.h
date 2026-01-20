@@ -21,7 +21,7 @@ public:    //публичный модификатор доступ (испол�
     unsigned int GetLvl() const;
     virtual void GetInfo();
     virtual void Create() {};
-    
+
     virtual bool Save();
     virtual bool Load();
     virtual ~Npc() = default; //default - по умолчанию, чтобы не писать {} тело пустое
