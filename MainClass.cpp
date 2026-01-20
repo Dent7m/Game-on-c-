@@ -66,7 +66,7 @@ bool Npc::Load()
         return false;
     }
     loadSystem.close();
-   
+
 };
 void Player::Create(unique_ptr<Npc> player)
 {
@@ -95,4 +95,3 @@ Npc* Player::GetCharacter()
 {
     return currentCharacter.get();
 }
-
