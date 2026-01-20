@@ -1,10 +1,11 @@
 #pragma once
-#include "MainClass.h"
+#include "BasicClasses.h"
 
 class Evil : public Npc {
 public:
-    Evil(string name);
-    Evil(string name, int health) : Evil(name) {};
-    Evil(string name, int health, int damage) : Evil(name, health) {};
-    void GetInfo() override;
+	Evil(string name);
+	Evil(string name, int health);
+	Evil(string name, int health, int damage);
+
+	void GetInfo() override;
 };
