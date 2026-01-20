@@ -18,9 +18,9 @@ unsigned int Npc::GetLvl()const
 }
 void Npc::GetInfo() const
 {
-    cout << "Ð˜Ð¼Ñ - " << name << endl;
-    cout << "Ð—Ð´Ð¾Ñ€Ð¾Ð²ÑŒÐµ - " << health << endl;
-    cout << "Ð£Ñ€Ð¾Ð½ - " << damage << endl;
+    cout << "Èìÿ - " << name << endl;
+    cout << "Çäîðîâüå - " << health << endl;
+    cout << "Óðîí - " << damage << endl;
 }
 bool Npc::Save()
 {
@@ -36,7 +36,7 @@ bool Npc::Save()
     }
     else
     {
-        cout << "ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ðµ Ð½Ðµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ" << endl;
+        cout << "ñîõðàíåíèå íå óäàëîñü" << endl;
         return false;
     }
     saveSystem.close();
@@ -61,7 +61,7 @@ bool Npc::Load()
     }
     else
     {
-        cout << "ÑÐ²ÑÐ·ÑŒ Ñ Ð±Ð°Ð·Ð¾Ð¹ Ð½Ð°Ñ€ÑƒÑˆÐµÐ½Ð°\nÐŸÐ°Ð¼ÑÑ‚ÑŒ ÑƒÑ‚ÐµÑ€ÐµÐ½Ð°" << endl;
+        cout << "ñâÿçü ñ áàçîé íàðóøåíà\nÏàìÿòü óòåðåíà" << endl;
         return false;
     }
     loadSystem.close();

@@ -39,20 +39,20 @@ class ChipsCreator : Creator
 public:
     ChipsCreator() = default;
     Product FactoryMethod() override { return Chips(); }
-};*/ //РїСЂРёРјРµСЂ РЅР°РїРёСЃР°РЅРёСЏ
+};*/ //пример написания
 
 enum class ValueQuality
 {
-    РјСѓСЃРѕСЂ, РѕР±С‹С‡РЅРѕРµ, СЂРµРґРєРѕРµ, Р»РµРіРµРЅРґР°СЂРЅРѕРµ, РјРёС„РёС‡РµСЃРєРѕРµ //СЌРєРІРёРІР°Р»РµРЅС‚ РїРµСЂРµС‡РёСЃР»РµРЅРёСЏ С‡РёСЃРµР»
+    мусор, обычное, редкое, легендарное, мифическое //эквивалент перечисления чисел
 };
 
 enum class WaponClass
 {
-    Р°Р»РµР±Р°СЂРґР°, РєР»РµР№РјРѕСЂ, РєР°С‚Р°РЅР°, Р»СѓРє, Р°СЂР±Р°Р»РµС‚
+    алебарда, клеймор, катана, лук, арбалет
 };
 enum class SpalloClass
 {
-    РєСЂРѕРІР°РІС‹Р№_РґРѕР¶РґСЊ, РјРµС‚РµРѕСЂ, СЃРІСЏС‚РѕРµ_СЃРѕР»РЅС†Рµ, РёСЃРїРµРїРµР»СЏСЋС‰РёР№_РіРёРјРЅ, С…РѕСЂ_РїРѕРґРЅРµР±РµСЃСЊСЏ
+    кровавый_дождь, метеор, святое_солнце, испепеляющий_гимн, хор_поднебесья
 };
 
 enum class CharacterType
@@ -65,30 +65,30 @@ enum class CharacterType
 
 struct Wapon
 {
-    string name{ "РћСЂСѓР¶РёРµ" };
-    WaponClass wclass = WaponClass::Р°Р»РµР±Р°СЂРґР°;
+    string name{ "Оружие" };
+    WaponClass wclass = WaponClass::алебарда;
     unsigned int price{ 0 };
-    string valueSite[5]{ "РђР»РµР±Р°СЂРґР°","РљР»РµР№РјРѕСЂ","РљР°С‚Р°РЅР°","Р›СѓРє","РђСЂР±Р°Р»РµС‚" };
+    string valueSite[5]{ "Алебарда","Клеймор","Катана","Лук","Арбалет" };
     string site{ NULL };
     unsigned short damage{ 1 };
     Wapon(WaponClass wclass)
     {
         switch (wclass)
         {
-        case WaponClass::Р°Р»РµР±Р°СЂРґР°:
-            cout << "РђР»РµР±Р°СЂРґР°\n";
+        case WaponClass::алебарда:
+            cout << "Алебарда\n";
             break;
-        case WaponClass::РєР»РµР№РјРѕСЂ:
-            cout << "РљР»РµР№РјРѕСЂ\n";
+        case WaponClass::клеймор:
+            cout << "Клеймор\n";
             break;
-        case WaponClass::РєР°С‚Р°РЅР°:
-            cout << "РљР°С‚Р°РЅР°\n";
+        case WaponClass::катана:
+            cout << "Катана\n";
             break;
-        case WaponClass::Р»СѓРє:
-            cout << "Р›СѓРє\n";
+        case WaponClass::лук:
+            cout << "Лук\n";
             break;
-        case WaponClass::Р°СЂР±Р°Р»РµС‚:
-            cout << "РђСЂР±Р°Р»РµС‚\n";
+        case WaponClass::арбалет:
+            cout << "Арбалет\n";
             break;
         default:
             break;
@@ -97,26 +97,26 @@ struct Wapon
 };
 struct Spallo
 {
-    string name{ "РњР°РіРёСЏ" };
-    SpalloClass sclass = SpalloClass::РєСЂРѕРІР°РІС‹Р№_РґРѕР¶РґСЊ;
+    string name{ "Магия" };
+    SpalloClass sclass = SpalloClass::кровавый_дождь;
     unsigned int price{ 0 };
     Spallo(SpalloClass sclass)
     {
         switch (sclass)
         {
-        case SpalloClass::РєСЂРѕРІР°РІС‹Р№_РґРѕР¶РґСЊ:
+        case SpalloClass::кровавый_дождь:
             cout << "\n";
             break;
-        case SpalloClass::РјРµС‚РµРѕСЂ:
+        case SpalloClass::метеор:
             cout << "\n";
             break;
-        case SpalloClass::СЃРІСЏС‚РѕРµ_СЃРѕР»РЅС†Рµ:
+        case SpalloClass::святое_солнце:
             cout << "\n";
             break;
-        case SpalloClass::РёСЃРїРµРїРµР»СЏСЋС‰РёР№_РіРёРјРЅ:
+        case SpalloClass::испепеляющий_гимн:
             cout << "\n";
             break;
-        case SpalloClass::С…РѕСЂ_РїРѕРґРЅРµР±РµСЃСЊСЏ:
+        case SpalloClass::хор_поднебесья:
             cout << "\n";
             break;
         default:
@@ -124,56 +124,56 @@ struct Spallo
         }
     };
 };
-//РѕС‚Р»РёС‡РёРµ struct РѕС‚ class
+//отличие struct от class
 /**/
-struct Treasure //РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РІСЃРµ РІРЅСѓС‚СЂРё public
+struct Treasure //по умолчанию все внутри public
 {
-    string name{ "РґРѕР±С‹С‡Р°" };
-    ValueQuality quality = ValueQuality::РјСѓСЃРѕСЂ;
+    string name{ "добыча" };
+    ValueQuality quality = ValueQuality::мусор;
     unsigned int price{ 0 };
     Treasure(ValueQuality quality)
     {
         switch (quality)
         {
-        case ValueQuality::РјСѓСЃРѕСЂ:
-            cout << "РџР»РѕС…РѕРµ РєР°С‡РµСЃС‚РІРѕ\n";
+        case ValueQuality::мусор:
+            cout << "Плохое качество\n";
             break;
-        case ValueQuality::РѕР±С‹С‡РЅРѕРµ:
-            cout << "РћР±С‹С‡РЅРѕРµ РєР°С‡РµСЃС‚РІРѕ\n";
+        case ValueQuality::обычное:
+            cout << "Обычное качество\n";
             break;
-        case ValueQuality::СЂРµРґРєРѕРµ:
-            cout << "РҐРѕСЂРѕС€РѕРµ РєР°С‡РµСЃС‚РІРѕ\n";
+        case ValueQuality::редкое:
+            cout << "Хорошое качество\n";
             break;
-        case ValueQuality::Р»РµРіРµРЅРґР°СЂРЅРѕРµ:
-            cout << "РћС‚Р»РёС‡РЅРѕРµ РєР°С‡РµСЃС‚РІРѕ\n";
+        case ValueQuality::легендарное:
+            cout << "Отличное качество\n";
             break;
-        case ValueQuality::РјРёС„РёС‡РµСЃРєРѕРµ:
-            cout << "Р‘РѕР¶РµСЃС‚РІРµРЅРЅРѕРµ РєР°С‡РµСЃС‚РІРѕ\n";
+        case ValueQuality::мифическое:
+            cout << "Божественное качество\n";
             break;
         default:
             break;
         }
     }
 };
-struct Cloth : Treasure //РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ public
+struct Cloth : Treasure //наследование по умолчанию public
 {
     Cloth(ValueQuality quaity) : Treasure(quality) {};
-    string valueSite[5]{ "РѕР±СѓРІСЊ","РїРµСЂС‡Р°С‚РєРё","С€Р»РµРј","РЅР°РіСЂСѓРґРЅРёРє","РїРѕСЏСЃ" };
+    string valueSite[5]{ "обувь","перчатки","шлем","нагрудник","пояс" };
     string site{ NULL };
     unsigned short armor{ 1 };
 };
 
 /*
-class Treasure //РІСЃРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РІРЅСѓС‚СЂРё private
+class Treasure //все по умолчанию внутри private
 {
 public:
-    string name{ "РґРѕР±С‹С‡Р°" };
-    string quality[5]{ "РјСѓСЃРѕСЂ","РѕР±С‹С‡РЅРѕРµ","СЂРµРґРєРѕРµ","Р»РµРіРµРЅРґР°СЂРЅРѕРµ","РјРёС„РёС‡РµСЃРєРѕРµ" };
+    string name{ "добыча" };
+    string quality[5]{ "мусор","обычное","редкое","легендарное","мифическое" };
     unsigned int price{ 0 };
 };
-class Cloth : Treasure //РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ private
+class Cloth : Treasure //наследование по умолчанию private
 {
-    string valueSite[5]{ "РѕР±СѓРІСЊ","РїРµСЂС‡Р°С‚РєРё","С€Р»РµРј","РЅР°РіСЂСѓРґРЅРёРє","РїРѕСЏСЃ" };
+    string valueSite[5]{ "обувь","перчатки","шлем","нагрудник","пояс" };
     string site{ NULL };
     unsigned short armor{ 1 };
 };*/
@@ -182,19 +182,19 @@ class Cloth : Treasure //РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ privat
 {
     switch (wclass)
     {
-    case WaponClass::Р°Р»РµР±Р°СЂРґР°:
-        //return make_unique<Р°Р»РµР±Р°СЂРґР°>()
+    case WaponClass::алебарда:
+        //return make_unique<алебарда>()
         break;
-    case WaponClass::РєР»РµР№РјРѕСЂ:
+    case WaponClass::клеймор:
         break;
-    case WaponClass::РєР°С‚Р°РЅР°:
+    case WaponClass::катана:
         break;
-    case WaponClass::Р»СѓРє:
+    case WaponClass::лук:
         break;
-    case WaponClass::Р°СЂР±Р°Р»РµС‚:
+    case WaponClass::арбалет:
         break;
     default:
-        invalid_argument("РќРµРёР·РІРµСЃС‚РЅС‹Р№ С‚РёРї РѕСЂСѓР¶РёСЏ");
+        invalid_argument("Неизвестный тип оружия");
         break;
     }
 }*/
@@ -216,7 +216,7 @@ unique_ptr<Npc> CreateCharacter(CharacterType type)
         return make_unique<Paladin>();
         break;
     default:
-        invalid_argument("РќРµРёР·РІРµС‚СЃРЅС‹Р№ С‚РёРї РїРµСЂСЃРѕРЅР°Р¶Р°");
+        invalid_argument("Неизветсный тип персонажа");
         break;
     }
 }
@@ -240,34 +240,34 @@ int main()
     SetConsoleOutputCP(1251);
 
     /*Treasure treasure;
-    treasure.name = "РґСЂРµРІРЅСЏСЏ С‚Р°СЂРµР»РєР°";
+    treasure.name = "древняя тарелка";
     treasure.price = 30;
     treasure.quality = treasure.valuequality[3];
     cout << treasure.name << '\n' << treasure.price << '\n' << treasure.quality << '\n';*/
 
-    /*Cloth cloth(ValueQuality::РјРёС„РёС‡РµСЃРєРѕРµ);
+    /*Cloth cloth(ValueQuality::мифическое);
     cloth.armor = 10;
     cloth.site = cloth.valueSite[2];
-    cloth.name = "РЁР»РµРј Р»РѕСЂРґР° РїРѕРІРµР»РёС‚РµР»СЏ";
+    cloth.name = "Шлем лорда повелителя";
     cloth.price = 50;
     cout << cloth.name << '\n' << cloth.site << '\n' << cloth.armor << '\n' << cloth.price << '\n';
 
-    Wapon wapon(WaponClass::РєР°С‚Р°РЅР°);
+    Wapon wapon(WaponClass::катана);
     wapon.damage = 10;
     wapon.site = wapon.valueSite[2];
-    wapon.name = "РљСЂРѕРІР°РІС‹Р№ РґР°Р№РјРµ";
+    wapon.name = "Кровавый дайме";
     wapon.price = 50;
     cout << wapon.name << '\n' << wapon.site << '\n' << wapon.damage << '\n' << wapon.price << '\n';*/
 
     Player* player = new Player();
 
-    cout << "РџСЂРёРІРµС‚, РїСѓС‚РЅРёРє\nРџСЂРёСЃСЏРґСЊ Сѓ РєРѕСЃС‚СЂР° Рё СЂР°СЃСЃРєР°Р¶Рё Рѕ СЃРµР±Рµ\n";
-    cout << "РўС‹ РІРїРµСЂРІС‹Рµ С‚СѓС‚? (1 - РЅРѕРІС‹Р№ РїРµСЂСЃРѕРЅР°Р¶, 2 - Р·Р°РіСЂСѓР·РёС‚СЊ)\n";
-    if (TestChoise(2, "РќР°РІРµСЂРЅРѕРµ С‚С‹ РѕС€РёР±СЃСЏ, РїРѕРІС‚РѕСЂРё СЃРЅРѕРІР°\n"))
+    cout << "Привет, путник\nПрисядь у костра и расскажи о себе\n";
+    cout << "Ты впервые тут? (1 - новый персонаж, 2 - загрузить)\n";
+    if (TestChoise(2, "Наверное ты ошибся, повтори снова\n"))
     {
-        cout << "Р Р°СЃСЃРєР°Р¶Рё Рѕ СЃРІРѕРёС… РЅР°РІС‹РєР°С…\n\t1 - Р’РѕРёРЅ\n\t2 - Р’РѕР»С€РµР±РЅРёРє\n\t3 - РџР°Р»Р°РґРёРЅ\n";
+        cout << "Расскажи о своих навыках\n\t1 - Воин\n\t2 - Волшебник\n\t3 - Паладин\n";
         unique_ptr<Npc> character;
-        switch (TestChoise(3, "РўР°РєРѕРіРѕ РµС‰Рµ РЅРµ Р±С‹Р»Рѕ РІ РЅР°С€РёС… РєСЂР°СЏС…\nРќРµ РјРѕРі Р±С‹ С‚С‹ РїРѕРІС‚РѕСЂРёС‚СЊ\n"))
+        switch (TestChoise(3, "Такого еще не было в наших краях\nНе мог бы ты повторить\n"))
         {
         case 1:
             character = CreateCharacter(CharacterType::WARRIOR);
@@ -301,16 +301,16 @@ int main()
     cin >> choise;
     while (choise > 2 || choise < 1)
     {
-        cout << "РќР°РІРµСЂРЅРѕРµ С‚С‹ РѕС€РёР±СЃСЏ, РїРѕРІС‚РѕСЂРё СЃРЅРѕРІР°\n";
+        cout << "Наверное ты ошибся, повтори снова\n";
         cin >> choise;
     }
     if (choise == 1)
     {
-        cout << "Р Р°СЃСЃРєР°Р¶Рё Рѕ СЃРІРѕРёС… РЅР°РІС‹РєР°С…\n\t1 - Р’РѕРёРЅ\n\t2 - Р’РѕР»С€РµР±РЅРёРє\n\t3 - РџР°Р»Р°РґРёРЅ\n";
+        cout << "Расскажи о своих навыках\n\t1 - Воин\n\t2 - Волшебник\n\t3 - Паладин\n";
         cin >> choise;
         while (choise > 3 || choise < 1)
         {
-            cout << "РўР°РєРѕРіРѕ РµС‰Рµ РЅРµ Р±С‹Р»Рѕ РІ РЅР°С€РёС… РєСЂР°СЏС…\nРќРµ РјРѕРі Р±С‹ С‚С‹ РїРѕРІС‚РѕСЂРёС‚СЊ\n";
+            cout << "Такого еще не было в наших краях\nНе мог бы ты повторить\n";
             cin >> choise;
         }
 
@@ -349,7 +349,7 @@ int main()
         player->Load(warrior);
     }
 
-    cout << "СЃРґРµР»Р°РµРј РѕСЃС‚Р°РЅРѕРІРєСѓ С‚СѓС‚?\n\t1 - СЃРѕС…СЂР°РЅРёС‚СЊ РёРіСЂСѓ\n\t2 - РїСЂРѕРґРѕР»Р¶РёС‚СЊ\n";
+    cout << "сделаем остановку тут?\n\t1 - сохранить игру\n\t2 - продолжить\n";
     cin >> choise;
     if (choise == 1)
     {
@@ -365,7 +365,7 @@ unsigned short GetChoice(unsigned short first, unsigned short last)
     unsigned short choice;
     cin >> choice;
     while (choice < first || choice > last) {
-        cout << "РќРµРІРµСЂРЅС‹Р№ РІРІРѕРґ! Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ " << first << " РґРѕ " << last;
+        cout << "Неверный ввод! Введите число от " << first << " до " << last;
         cout << endl;
         cin >> choice;
     }

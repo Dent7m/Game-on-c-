@@ -1,4 +1,4 @@
-#include "Evil.h"
+﻿#include "Evil.h"
 
 using namespace std;
 
@@ -7,12 +7,15 @@ Evil::Evil(const std::string& name) {
     health = 10;
     damage = 5.0f;  
 }
+
 Evil::Evil(const std::string& name, unsigned int health) : Evil(name) {
     this->health = health;
 }
+
 Evil::Evil(const std::string& name, unsigned int health, float damage) : Evil(name, health) {
     this->damage = damage;  
 }
+
 void Evil::GetInfo() {
     cout << endl;
     cout << "на вас напал " << name << endl;

@@ -7,7 +7,7 @@ bool Warrior::Save()
     {
         if (Npc::Save())
         {
-            cout << "СЃРѕС…СЂР°РЅРµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ" << endl;
+            cout << "сохранение не удалось" << endl;
             return false;
         }
         saveSystem.write(reinterpret_cast<const char*>(&strenght), sizeof(strenght));
@@ -16,7 +16,7 @@ bool Warrior::Save()
     }
     else
     {
-        cout << "СЃРѕС…СЂР°РЅРµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ" << endl;
+        cout << "сохранение не удалось" << endl;
         return false;
     }
 
@@ -29,7 +29,7 @@ bool Warrior::Load()
     {
         if (!Npc::Load())
         {
-            cout << "СЃРІСЏР·СЊ СЃ Р±Р°Р·РѕР№ РЅР°СЂСѓС€РµРЅР°\nРџР°РјСЏС‚СЊ СѓС‚РµСЂРµРЅР°" << endl;
+            cout << "связь с базой нарушена\nПамять утерена" << endl;
             return false;
         }
         loadSystem.read(reinterpret_cast<char*>(&strenght), sizeof(strenght));
@@ -37,7 +37,7 @@ bool Warrior::Load()
     }
     else
     {
-        cout << "СЃРІСЏР·СЊ СЃ Р±Р°Р·РѕР№ РЅР°СЂСѓС€РµРЅР°\nРџР°РјСЏС‚СЊ СѓС‚РµСЂРµРЅР°" << endl;
+        cout << "связь с базой нарушена\nПамять утерена" << endl;
         return false;
     }
     loadSystem.close();
@@ -45,16 +45,16 @@ bool Warrior::Load()
 
 
 };
-Warrior::Warrior() //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РєРѕРіРґР° РЅРµС‚ Р°СЂРіСѓРјРµРЅС‚РѕРІ
+Warrior::Warrior() //конструктор по умолчанию, когда нет аргументов
 {
-    name = "РІРѕРёРЅ";
+    name = "воин";
     health = 35;
     damage = 10;
 }
 
 Warrior::Warrior(string name, unsigned int health, float damage)
 {
-    cout << "РєР°СЃС‚РѕРјРЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РІРѕР№РЅР°" << endl;
+    cout << "кастомный конструктор война" << endl;
     this->name = name;
     this->health = health;
     this->damage = damage;
@@ -62,13 +62,13 @@ Warrior::Warrior(string name, unsigned int health, float damage)
 
 void Warrior::GetWeapons()
 {
-    cout << name << " РІР·СЏР» РІ СЂСѓРєРё " << weapons[lvl - 1];
+    cout << name << " взял в руки " << weapons[lvl - 1];
 }
-void Warrior::GetInfo()   //РїРѕР»РёРјРѕСЂС„РёР·Рј (РїРµСЂРµРіСЂСѓР·РєР° РґР»СЏ РјРµС‚РѕРґР°)
+void Warrior::GetInfo()   //полиморфизм (перегрузка для метода)
 {
     Npc::GetInfo();
-    cout << "РЎРёР»Р° - " << strenght << endl;
-    cout << "Р”РѕСЃС‚СѓРїРЅРѕРµ РѕСЂСѓР¶РёРµ - ";
+    cout << "Сила - " << strenght << endl;
+    cout << "Доступное оружие - ";
     for (int i = 0; i < lvl; i++)
     {
         cout << weapons[i] << endl;
@@ -76,8 +76,8 @@ void Warrior::GetInfo()   //РїРѕР»РёРјРѕСЂС„РёР·Рј (РїРµСЂРµРіСЂСѓР·РєР° РґР»СЏ 
 }
 void Warrior::Create()
 {
-    cout << "Р’С‹ СЃРѕР·РґР°Р»Рё РІРѕР№РЅР°" << endl;
-    cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°\t";
+    cout << "Вы создали война" << endl;
+    cout << "Введите имя персонажа\t";
     cin >> name;
     GetInfo();
     GetWeapons();
@@ -103,7 +103,7 @@ Warrior& Warrior::operator = (const Npc& npc)
 
 Warrior::~Warrior() 
 {
-    cout << name << " РїР°Р» СЃРјРµСЂС‚СЊСЋ С…СЂР°Р±СЂС‹С…" << endl;
+    cout << name << " пал смертью храбрых" << endl;
 }
 
 Wizard::Spell::Spell(string name, unsigned short damage,
@@ -125,7 +125,7 @@ bool Wizard::Save()
     {
         if (!Npc::Save())
         {
-            cout << "СЃРѕС…СЂР°РЅРµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ" << endl;
+            cout << "сохранение не удалось" << endl;
             return false;
         }
         saveSystem.write(reinterpret_cast<const char*>(&intellect), sizeof(intellect));
@@ -134,7 +134,7 @@ bool Wizard::Save()
     }
     else
     {
-        cout << "СЃРѕС…СЂР°РЅРµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ" << endl;
+        cout << "сохранение не удалось" << endl;
         return false;
     }
 }
@@ -145,7 +145,7 @@ bool Wizard::Load()
     {
         if (!Npc::Load())
         {
-            cout << "СЃРІСЏР·СЊ СЃ Р±Р°Р·РѕР№ РЅР°СЂСѓС€РµРЅР°\nРџР°РјСЏС‚СЊ СѓС‚РµСЂРµРЅР°" << endl;
+            cout << "связь с базой нарушена\nПамять утерена" << endl;
             return false;
         }
         loadSystem.read(reinterpret_cast<char*>(&intellect), sizeof(intellect));
@@ -154,31 +154,31 @@ bool Wizard::Load()
     }
     else
     {
-        cout << "СЃРІСЏР·СЊ СЃ Р±Р°Р·РѕР№ РЅР°СЂСѓС€РµРЅР°\nРџР°РјСЏС‚СЊ СѓС‚РµСЂРµРЅР°" << endl;
+        cout << "связь с базой нарушена\nПамять утерена" << endl;
         return false;
     }
 }
-void Wizard::GetInfo() //РїРѕР»РёРјРѕСЂС„РёР·Рј (РїРµСЂРµРіСЂСѓР·РєР° РґР»СЏ РјРµС‚РѕРґР°)
+void Wizard::GetInfo() //полиморфизм (перегрузка для метода)
 {
     Npc::GetInfo();
-    cout << "РРЅС‚РµР»Р»РµРєС‚ - " << intellect << endl;
-    cout << "Р”РѕСЃС‚СѓРїРЅС‹Рµ Р·Р°РєР»РёРЅР°РЅРёСЏ РІ РєРЅРёРіРµ Р·Р°РєР»РёРЅР°РЅРёР№ - ";
+    cout << "Интеллект - " << intellect << endl;
+    cout << "Доступные заклинания в книге заклинаний - ";
 
 }
 void Wizard::GetSpellInfo()
 {
     for (int i = 0; i < 5; i++)
     {
-        cout << i + 1 << " Р—Р°РєР»РёРЅР°РЅРёРµ: " << spells[i].GetName()
-            << ", РЈСЂРѕРЅ: " << spells[i].GetDamage()
-            << ", Р¦РµРЅР°: " << spells[i].GetPrice() << endl;
+        cout << i + 1 << " Заклинание: " << spells[i].GetName()
+            << ", Урон: " << spells[i].GetDamage()
+            << ", Цена: " << spells[i].GetPrice() << endl;
     }
 }
 
 void Wizard::Create()
 {
-    cout << "Р’С‹ СЃРѕР·РґР°Р»Рё РІРѕР»С€РµР±РЅРёРєР°" << endl;
-    cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°\t";
+    cout << "Вы создали волшебника" << endl;
+    cout << "Введите имя персонажа\t";
     cin >> name;
     GetInfo();
 
@@ -196,14 +196,14 @@ void Wizard::operator = (Npc npc)
     this->name = npc.GetLvl();
 }
 
-Wizard::~Wizard() //РґРµСЃС‚СЂСѓРєС‚РѕСЂ РІСЃРµРіРґР° Р±РµР· Р°СЂРіСѓРјРµРЅС‚РѕРІ
+Wizard::~Wizard() //деструктор всегда без аргументов
 {
-    cout << name << " РёСЃРїСѓСЃС‚РёР» РґСѓС…" << endl;
+    cout << name << " испустил дух" << endl;
 }
 
 Paladin::Paladin()
 {
-    name = "РїР°Р»Р°РґРёРЅ";
+    name = "паладин";
     health = 25;
     damage = 12;
     strenght = 27;
@@ -211,17 +211,17 @@ Paladin::Paladin()
 }
 void Paladin::GetInfo()
 {
-    cout << "РРјСЏ - " << name << endl;
-    cout << "Р—РґРѕСЂРѕРІСЊРµ - " << health << endl;
-    cout << "РЈСЂРѕРЅ - " << damage << endl;
-    cout << "РЎРёР»Р° - " << strenght << endl;
-    cout << "РРЅС‚РµР»Р»РµРєС‚ - " << intellect << endl;
+    cout << "Имя - " << name << endl;
+    cout << "Здоровье - " << health << endl;
+    cout << "Урон - " << damage << endl;
+    cout << "Сила - " << strenght << endl;
+    cout << "Интеллект - " << intellect << endl;
 }
 
 void Paladin::Create()
 {
-    cout << "Р’С‹ СЃРѕР·РґР°Р»Рё РїР°Р»Р°РґРёРЅР°" << endl;
-    cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°\t";
+    cout << "Вы создали паладина" << endl;
+    cout << "Введите имя персонажа\t";
     cin >> name;
     GetInfo();
     GetWeapons();  
@@ -255,7 +255,7 @@ bool Paladin::Save()
     {
         if (!Npc::Save())
         {
-            cout << "РЎРѕС…СЂР°РЅРµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ" << endl;
+            cout << "Сохранение не удалось" << endl;
             return false;
         }
         saveSystem.write(reinterpret_cast<const char*>(&intellect), sizeof(intellect));
@@ -265,7 +265,7 @@ bool Paladin::Save()
     }
     else
     {
-        cout << "РЎРѕС…СЂР°РЅРµРЅРёРµ РЅРµ СѓРґР°Р»РѕСЃСЊ" << endl;
+        cout << "Сохранение не удалось" << endl;
         return false;
     }
 }
@@ -277,7 +277,7 @@ bool Paladin::Load()
     {
         if (!Npc::Load())
         {
-            cout << "РЎРІСЏР·СЊ СЃ РЅРµР±РѕРј РЅР°СЂСѓС€РµРЅР°\nРџР°РјСЏС‚СЊ СѓС‚РµСЂРµРЅР°" << endl;
+            cout << "Связь с небом нарушена\nПамять утерена" << endl;
             return false;
         }
         loadSystem.read(reinterpret_cast<char*>(&intellect), sizeof(intellect));
@@ -287,7 +287,7 @@ bool Paladin::Load()
     }
     else
     {
-        cout << "РЎРІСЏР·СЊ СЃ РЅРµР±РѕРј РЅР°СЂСѓС€РµРЅР°\nРџР°РјСЏС‚СЊ СѓС‚РµСЂРµРЅР°" << endl;
+        cout << "Связь с небом нарушена\nПамять утерена" << endl;
         return false;
     }
 }
