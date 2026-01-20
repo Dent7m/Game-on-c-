@@ -1,5 +1,5 @@
 #pragma once
-#include "BasicClasses.h"
+#include "MainClass.h"
 
 class Evil : public Npc {
 public:
@@ -9,3 +9,4 @@ public:
 
 	void GetInfo() override;
 };
+
