@@ -1,23 +1,23 @@
 #pragma once
 #include "MainClass.h"
 
-class Warrior : public virtual Npc 
+class Warrior : public virtual Npc
 {
-protected:  
+protected:
     unsigned short strenght{ 31 };
     string weapons[4] = { "кастет", "дубинка", "клинок", "меч" };
 public:
     Warrior();
     Warrior(string name, unsigned int health, float damage);
     void GetWeapons();
-    void GetInfo() override;  
+    void GetInfo() override;
     void Create() override;
     bool operator == (const Warrior& warrior) const;
     Warrior& operator = (const Npc& npc);
     bool Save() override;
     bool Load() override;
 
-    ~Warrior(); 
+    ~Warrior();
 
 };
 
@@ -155,7 +155,8 @@ public:
 
 
         if (Npc::Save())
-        {ofstream saveSystem("save.bin", ios::binary);
+        {
+            ofstream saveSystem("save.bin", ios::binary);
             if (saveSystem.is_open())
             {
 
@@ -175,4 +176,3 @@ public:
         }
     }
 };
-
