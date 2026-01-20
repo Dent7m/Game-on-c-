@@ -1,31 +1,29 @@
+#pragma once
 #include "Evil.h"
 
-class Evil : public Npc {
-public:
-    Evil(string name) {
-        this->name = name;
-        health = 10;
-        damage = 5;
-    }
-    Evil(string name, int health) : Evil(name) {
-        this->health = health;
-    }
-    Evil(string name, int health, int damage) : Evil(name, health) {
-        this->damage = damage;
-    }
+Evil::Evil(std::string name) {
+	this->name = name;
+	health = 10;
+	damage = 5;
+}
+Evil::Evil(string name, int health) : Evil(name) {
+	this->health = health;
+}
+Evil::Evil(string name, int health, int damage) : Evil(name, health) {
+	this->damage = damage;
+}
 
-    void GetInfo() override {
-        cout << endl;
-        cout << "íà âàñ íàïàë " << name << endl;
-        if (health >= 0 && damage < 0) {
-            cout << "Çäîðîâüå - " << health << endl;
-        }
-        if (health < 0 && damage >= 0) {
-            cout << "óðîí - " << damage << endl;
-        }
-        if (health >= 0 && damage >= 0) {
-            cout << "Çäîðîâüå - " << health << endl;
-            cout << "óðîí - " << damage << endl;
-        }
-    }
-};
+void Evil::GetInfo() {
+	cout << endl;
+	cout << "Ã­Ã  Ã¢Ã Ã± Ã­Ã Ã¯Ã Ã« " << name << endl;
+	if (health >= 0 && damage < 0) {
+		cout << "Ã‡Ã¤Ã®Ã°Ã®Ã¢Ã¼Ã¥ - " << health << endl;
+	}
+	if (health < 0 && damage >= 0) {
+		cout << "Ã³Ã°Ã®Ã­ - " << damage << endl;
+	}
+	if (health >= 0 && damage >= 0) {
+		cout << "Ã‡Ã¤Ã®Ã°Ã®Ã¢Ã¼Ã¥ - " << health << endl;
+		cout << "Ã³Ã°Ã®Ã­ - " << damage << endl;
+	}
+}
