@@ -6,7 +6,7 @@ class Warrior : public virtual Npc
 {
 protected:  
     unsigned short strenght{ 31 };
-    string weapons[4] = { "РєР°СЃС‚РµС‚", "РґСѓР±РёРЅРєР°", "РєР»РёРЅРѕРє", "РјРµС‡" };
+    string weapons[4] = { "кастет", "дубинка", "клинок", "меч" };
 public:
     bool Save() override;
     bool Load() override;
@@ -29,14 +29,14 @@ class Wizard : public virtual Npc
     class Spell
     {
     protected:
-        string name{ "Р·Р°РєР»РёРЅР°РЅРёРµ" };
+        string name{ "заклинание" };
         unsigned short damage{ 0 };
         unsigned short price{ 0 };
         bool isCurse{ false };
         int timeCast{ 0 };
 
     public:
-        Spell(string name = "Р·Р°РєР»РёРЅР°РЅРёРµ", unsigned short damage = 0,
+        Spell(string name = "заклинание", unsigned short damage = 0,
             unsigned short price = 0, bool isCurse = false, int timeCast = 0);
 
         string GetName() const { return name; }
@@ -50,22 +50,22 @@ class Wizard : public virtual Npc
 protected:
     unsigned short intellect = 27;
     Spell spells[5] = {
-        Spell("РќР°СЃРјРµС€РєР°", 32,52,false,23),
+        Spell("Насмешка", 32,52,false,23),
         Spell("DOMEIN EXPENSION", 1000,99,false,100),
-        Spell("РЇРґ РіРѕРѕСЂРіРѕРЅС‹", 15,30,false,80),
-        Spell("Р°С…Р°С‚С‹Р±Рґ", 999,0,false,52),
-        Spell("РЎРІСЏС‰РµРЅС‹Р№ РјРµС‡ СЌСЃРєР°РЅРѕСЂ", 100,25,false,0),
+        Spell("Яд гооргоны", 15,30,false,80),
+        Spell("ахатыбд", 999,0,false,52),
+        Spell("Священый меч эсканор", 100,25,false,0),
     };
 public:
     Wizard()
     {
-        name = "РІРѕР»С€РµР±РЅРёРє";
+        name = "волшебник";
         health = 23;
         damage = 15;
     }
     Wizard(string name, unsigned int health, float damage)
     {
-        cout << "РєР°СЃС‚РѕРјРЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РІРѕР»С€РµР±РЅРёРєР°" << endl;
+        cout << "кастомный конструктор волшебника" << endl;
         this->name = name;
         this->health = health;
         this->damage = damage;
@@ -77,7 +77,7 @@ public:
     void operator = (Npc npc);
     bool Save() override;
     bool Load() override;
-    ~Wizard(); //РґРµСЃС‚СЂСѓРєС‚РѕСЂ РІСЃРµРіРґР° Р±РµР· Р°СЂРіСѓРјРµРЅС‚РѕРІ
+    ~Wizard(); //деструктор всегда без аргументов
 };
 
 class Paladin : public Warrior, public Wizard

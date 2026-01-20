@@ -7,7 +7,7 @@ using namespace std;
 class Npc
 {
 protected: 
-    string name{ "РїРµСЂСЃРѕРЅР°Р¶" };
+    string name{ "персонаж" };
     unsigned int health{ 10 };
     float damage{ 5 };
     unsigned short lvl{ 1 };
