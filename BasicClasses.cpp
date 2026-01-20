@@ -1,7 +1,7 @@
 #include "BasicClasses.h"
 #include "MainClass.cpp"
 
-Warrior::Warrior() 
+Warrior::Warrior()
 {
     name = "воин";
     health = 35;
@@ -19,7 +19,7 @@ void Warrior::GetWeapons()
 {
     cout << name << " взял в руки " << weapons[lvl - 1];
 }
-void Warrior::GetInfo()   
+void Warrior::GetInfo()
 {
     Npc::GetInfo();
     cout << "Сила - " << strenght << endl;
@@ -39,11 +39,11 @@ void Warrior::Create()
 }
 bool Warrior::operator == (const Warrior& warrior) const
 {
-    return (warrior.damage == this->damage) && 
-           (warrior.health == this->health) && 
-           (warrior.strenght == this->strenght);
+    return (warrior.damage == this->damage) &&
+        (warrior.health == this->health) &&
+        (warrior.strenght == this->strenght);
 }
-Warrior& Warrior::operator = (const Npc& npc) 
+Warrior& Warrior::operator = (const Npc& npc)
 {
     if (this != &npc)
     {
@@ -68,7 +68,7 @@ bool Warrior::Save()
                 return false;
             }
             saveSystem.write(reinterpret_cast<const char*>(&strenght), sizeof(strenght));
-          
+
             saveSystem.close();
             return true;
         }
@@ -101,7 +101,7 @@ bool Warrior::Load()
     return true;
 };
 
-Warrior::~Warrior() 
+Warrior::~Warrior()
 {
     cout << name << " пал смертью храбрых" << endl;
 }
