@@ -6,30 +6,28 @@ using namespace std;
 
 class Npc
 {
-protected: //модификатор 0 защищенный (дает доступ внутри класса родителя и наследника)
-    //но все еще не дает доступ в основном потоке программы
-
+protected: 
     string name{ "персонаж" };
     unsigned int health{ 10 };
     float damage{ 5 };
     unsigned short lvl{ 1 };
 
-public:    //публичный модификатор доступ (использовать метод можно в любом месте)
+public:   
     string GetName() const;
     unsigned int GetHealth() const;
     float GetDamage() const;
     unsigned int GetLvl() const;
-    virtual void GetInfo();
-    virtual void Create() {};
+    virtual void GetInfo() const;
 
+    virtual void Create() {};
     virtual bool Save();
     virtual bool Load();
-    virtual ~Npc() = default; //default - по умолчанию, чтобы не писать {} тело пустое
+    virtual ~Npc() = default;
 };
 class Player
 {
 private:
-    unique_ptr<Npc> currentCharacter{ nullptr }; //unique_ptr уникальный указатель, указывает на один объект
+    unique_ptr<Npc> currentCharacter;
 public:
     void Create(unique_ptr<Npc> player);
     void Create();
