@@ -1,12 +1,11 @@
 #pragma once
 #include "MainClass.h"
+#include <iostream>
 
 class Evil : public Npc {
 public:
-	Evil(string name);
-	Evil(string name, int health);
-	Evil(string name, int health, int damage);
-
-	void GetInfo() override;
+    Evil(const std::string& name);
+    Evil(const std::string& name, unsigned int health);
+    Evil(const std::string& name, unsigned int health, float damage);
+    void GetInfo();
 };
-
