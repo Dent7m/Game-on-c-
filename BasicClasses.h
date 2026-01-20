@@ -1,32 +1,61 @@
 #pragma once
 #include "MainClass.h"
+#include "string"
 
-class Warrior : public virtual Npc
+class Warrior : public virtual Npc 
 {
-protected:
+protected:  
     unsigned short strenght{ 31 };
     string weapons[4] = { "кастет", "дубинка", "клинок", "меч" };
 public:
-    Warrior();
-    Warrior(string name, unsigned int health, float damage);
-    void GetWeapons();
-    void GetInfo() override;
-    void Create() override;
-    bool operator == (const Warrior& warrior) const;
-    Warrior& operator = (const Npc& npc);
     bool Save() override;
     bool Load() override;
+    Warrior();
+    Warrior(string name, unsigned int health, float damage);
+
+    void GetWeapons();
+    void GetInfo();
+    void Create() override;
+
+    bool operator == (const Warrior& warrior) const;
+    Warrior& operator = (const Npc& npc);
 
     ~Warrior();
-
 };
-
 
 class Wizard : public virtual Npc
 {
+
+    class Spell
+    {
+    protected:
+        string name{ "заклинание" };
+        unsigned short damage{ 0 };
+        unsigned short price{ 0 };
+        bool isCurse{ false };
+        int timeCast{ 0 };
+
+    public:
+        Spell(string name = "заклинание", unsigned short damage = 0,
+            unsigned short price = 0, bool isCurse = false, int timeCast = 0);
+
+        string GetName() const { return name; }
+        unsigned short GetDamage() const { return damage; }
+        unsigned short GetPrice() const { return price; }
+        bool IsCurse() const { return isCurse; }
+        int GetTimeCast() const { return timeCast; }
+
+        unsigned short CastSpell();
+    };
 protected:
     unsigned short intellect = 27;
-    string spell[4] = { "вспышка", "магисческая стрела", "огненный шар", "метеоритный дождь" };
+    Spell spells[5] = {
+        Spell("Насмешка", 32,52,false,23),
+        Spell("DOMEIN EXPENSION", 1000,99,false,100),
+        Spell("Яд гооргоны", 15,30,false,80),
+        Spell("ахатыбд", 999,0,false,52),
+        Spell("Священый меч эсканор", 100,25,false,0),
+    };
 public:
     Wizard()
     {
@@ -41,138 +70,24 @@ public:
         this->health = health;
         this->damage = damage;
     }
-    void GetInfo() override  //полиморфизм (перегрузка для метода)
-    {
-        Npc::GetInfo();
-        cout << "Интеллект - " << intellect << endl;
-        cout << "Доступные заклинания в книге заклинаний - ";
-        for (int i = 0; i < lvl; i++)
-        {
-            cout << spell[i] << endl;
-        }
-    }
-    void CastSpell()
-    {
-        cout << name << " применяет " << spell[lvl - 1] << endl;
-    }
-    void Create() override
-    {
-        cout << "Вы создали волшебника" << endl;
-        cout << "Введите имя персонажа\t";
-        cin >> name;
-        GetInfo();
-        CastSpell();
-    }
-    bool operator == (const Wizard& wizard) const
-    {
-        return ((wizard.damage == this->damage) && (wizard.health == this->health)
-            && (wizard.intellect == this->intellect));
-    }
-    void operator = (Npc npc)
-    {
-        this->name = npc.GetName();
-        this->name = npc.GetHealth();
-        this->name = npc.GetDamage();
-        this->name = npc.GetLvl();
-    }
-    bool Save() override
-    {
-
-
-        if (Npc::Save())
-        {
-            ofstream saveSystem("save.bin", ios::binary);
-            if (saveSystem.is_open())
-            {
-
-                saveSystem.write(reinterpret_cast<const char*>(&intellect), sizeof(intellect));
-                for (int i = 0; i < 4; i++)
-                {
-                    saveSystem.write(reinterpret_cast<const char*>(&spell[i]), sizeof(spell[i]));
-                }
-                saveSystem.close();
-                return true;
-            }
-            else
-            {
-                cout << "сохранение не удалось" << endl;
-                return false;
-            }
-        }
-    }
-    ~Wizard() //деструктор всегда без аргументов
-    {
-        cout << name << " испустил дух" << endl;
-    }
-
+    void GetInfo();
+    void GetSpellInfo();
+    void Create() override;
+    bool operator == (const Wizard& wizard) const;
+    void operator = (Npc npc);
+    bool Save() override;
+    bool Load() override;
+    ~Wizard(); //деструктор всегда без аргументов
 };
 
-//множественное наследование
 class Paladin : public Warrior, public Wizard
-    //следующий родительственный класс добавляется через запятую
 {
 public:
-    Paladin()
-    {
-        name = "паладин";
-        health = 25;
-        damage = 12;
-        strenght = 27;
-    }
-    void GetInfo() override
-    {
-        Warrior::GetInfo();
-        cout << "Интеллект - " << intellect << endl;
-        cout << "Доступные заклинания в книге заклинаний - ";
-        for (int i = 0; i < lvl; i++)
-        {
-            cout << spell[i] << endl;
-        }
-    }
-    void Create() override
-    {
-        cout << "Вы создали паладина" << endl;
-        cout << "Введите имя персонажа\t";
-        cin >> name;
-        GetInfo();
-        CastSpell();
-        GetWeapons();
-    }
-    bool operator == (const Paladin& paladin) const
-    {
-        return ((paladin.damage == this->damage) && (paladin.health == this->health)
-            && (paladin.intellect == this->intellect)) && (paladin.strenght == this->strenght);
-    }
-    void operator = (Npc npc)
-    {
-        this->name = npc.GetName();
-        this->name = npc.GetHealth();
-        this->name = npc.GetDamage();
-        this->name = npc.GetLvl();
-    }
-    bool Save() override
-    {
-
-
-        if (Npc::Save())
-        {
-            ofstream saveSystem("save.bin", ios::binary);
-            if (saveSystem.is_open())
-            {
-
-                saveSystem.write(reinterpret_cast<const char*>(&intellect), sizeof(intellect));
-                for (int i = 0; i < 4; i++)
-                {
-                    saveSystem.write(reinterpret_cast<const char*>(&spell[i]), sizeof(spell[i]));
-                }
-                saveSystem.close();
-                return true;
-            }
-            else
-            {
-                cout << "сохранение не удалось" << endl;
-                return false;
-            }
-        }
-    }
+    Paladin();
+    void GetInfo();
+    void Create() override;
+    bool operator == (const Paladin& paladin) const;
+    Paladin& operator = (const Npc& npc);
+    bool Save() override;
+    bool Load() override;
 };
