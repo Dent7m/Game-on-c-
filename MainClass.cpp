@@ -4,19 +4,19 @@ string Npc::GetName() const
 {
     return name;
 }
-unsigned int Npc::GetHealth() const
+unsigned int Npc::GetHealth()const
 {
     return health;
 }
-float Npc::GetDamage() const
+float Npc::GetDamage()const
 {
     return damage;
 }
-unsigned int Npc::GetLvl() const
+unsigned int Npc::GetLvl()const
 {
     return lvl;
 }
-void Npc::GetInfo() //метод класса
+void Npc::GetInfo() const
 {
     cout << "Имя - " << name << endl;
     cout << "Здоровье - " << health << endl;
@@ -24,7 +24,6 @@ void Npc::GetInfo() //метод класса
 }
 bool Npc::Save()
 {
-
     ofstream saveSystem("save.bin", ios::binary);
     if (saveSystem.is_open())
     {
@@ -68,6 +67,7 @@ bool Npc::Load()
     loadSystem.close();
 
 };
+
 void Player::Create(unique_ptr<Npc> player)
 {
     currentCharacter = move(player);
@@ -78,19 +78,7 @@ void Player::Create()
     if (currentCharacter != nullptr)
         currentCharacter->Create();
 }
-bool Player::Save()
-{
-    return currentCharacter ? currentCharacter->Save() : false;
-}
-bool Player::Load(unique_ptr<Npc> player)
-{
-    if (player->Load())
-    {
-        currentCharacter = move(player);
-        return true;
-    }
-    return false;
-}
+
 Npc* Player::GetCharacter()
 {
     return currentCharacter.get();
