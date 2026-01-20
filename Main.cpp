@@ -357,9 +357,6 @@ int main()
         if (wizard != nullptr) player->Save(wizard);
         if (paladin != nullptr) player->Save(paladin);
     }*/
-
-
-
     return 0;
 }
 
