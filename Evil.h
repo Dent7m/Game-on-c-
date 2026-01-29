@@ -2,10 +2,10 @@
 #include "MainClass.h"
 #include <iostream>
 
-class Evil : public Npc {
+class ThePriestess : public Npc {
 public:
-    Evil(const std::string& name);
-    Evil(const std::string& name, unsigned int health);
-    Evil(const std::string& name, unsigned int health, float damage);
+    ThePriestess(const std::string& name);
+    ThePriestess(const std::string& name, unsigned int health);
+    ThePriestess(const std::string& name, unsigned int health, float damage);
     void GetInfo();
 };
