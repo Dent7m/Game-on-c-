@@ -1,13 +1,13 @@
 #include "BasicClasses.h"
 
-bool Warrior::Save()
+bool Sentinel::Save()
 {
     ofstream saveSystem("save.bin", ios::binary);
     if (saveSystem.is_open())
     {
         if (Npc::Save())
         {
-            cout << "сохранение не удалось" << endl;
+            cout << "Сохранение не удалось" << endl;
             return false;
         }
         saveSystem.write(reinterpret_cast<const char*>(&strenght), sizeof(strenght));
@@ -16,12 +16,12 @@ bool Warrior::Save()
     }
     else
     {
-        cout << "сохранение не удалось" << endl;
+        cout << "Сохранение не удалось" << endl;
         return false;
     }
 
 };
-bool Warrior::Load()
+bool Sentinel::Load()
 {
     ifstream loadSystem("save.bin", ios::binary);
 
@@ -29,7 +29,7 @@ bool Warrior::Load()
     {
         if (!Npc::Load())
         {
-            cout << "связь с базой нарушена\nПамять утерена" << endl;
+            cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
             return false;
         }
         loadSystem.read(reinterpret_cast<char*>(&strenght), sizeof(strenght));
@@ -37,7 +37,7 @@ bool Warrior::Load()
     }
     else
     {
-        cout << "связь с базой нарушена\nПамять утерена" << endl;
+        cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
         return false;
     }
     loadSystem.close();
@@ -45,26 +45,26 @@ bool Warrior::Load()
 
 
 };
-Warrior::Warrior() //конструктор по умолчанию, когда нет аргументов
+Sentinel::Sentinel() //конструктор по умолчанию, когда нет аргументов
 {
-    name = "воин";
-    health = 35;
-    damage = 10;
+    name = "Страж";
+    health = 1500;
+    damage = 90;
 }
 
-Warrior::Warrior(string name, unsigned int health, float damage)
+Sentinel::Sentinel(string name, unsigned int health, float damage)
 {
-    cout << "кастомный конструктор война" << endl;
+    cout << "Кастомный конструктор Стража" << endl;
     this->name = name;
     this->health = health;
     this->damage = damage;
 }
 
-void Warrior::GetWeapons()
+void Sentinel::GetWeapons()
 {
     cout << name << " взял в руки " << weapons[lvl - 1];
 }
-void Warrior::GetInfo()   //полиморфизм (перегрузка для метода)
+void Sentinel::GetInfo()   //полиморфизм (перегрузка для метода)
 {
     Npc::GetInfo();
     cout << "Сила - " << strenght << endl;
@@ -74,21 +74,21 @@ void Warrior::GetInfo()   //полиморфизм (перегрузка для 
         cout << weapons[i] << endl;
     }
 }
-void Warrior::Create()
+void Sentinel::Create()
 {
-    cout << "Вы создали война" << endl;
+    cout << "Вы создали стража" << endl;
     cout << "Введите имя персонажа\t";
     cin >> name;
     GetInfo();
     GetWeapons();
 }
-bool Warrior::operator == (const Warrior& warrior) const
+bool Sentinel::operator == (const Sentinel& sentinel) const
 {
-    return (warrior.damage == this->damage) &&
-        (warrior.health == this->health) &&
-        (warrior.strenght == this->strenght);
+    return (sentinel.damage == this->damage) &&
+        (sentinel.health == this->health) &&
+        (sentinel.strenght == this->strenght);
 }
-Warrior& Warrior::operator = (const Npc& npc)
+Sentinel& Sentinel::operator = (const Npc& npc)
 {
     if (this != &npc)
     {
@@ -101,31 +101,31 @@ Warrior& Warrior::operator = (const Npc& npc)
 
 }
 
-Warrior::~Warrior() 
+Sentinel::~Sentinel()
 {
-    cout << name << " пал смертью храбрых" << endl;
+    cout << name << "\nПоглощен Катастрофой" << endl;
 }
 
-Wizard::Spell::Spell(string name, unsigned short damage,
+TheCaster::Art::Art(string name, unsigned short damage,
     unsigned short price, bool isCurse, int timeCast)
     : name(name), damage(damage), price(price),
     isCurse(isCurse), timeCast(timeCast)
 {
 }
 
-unsigned short Wizard::Spell::CastSpell()
+unsigned short TheCaster::Art::CastArt()
 {
     return 0;
 }
 
-bool Wizard::Save()
+bool TheCaster::Save()
 {
     ofstream saveSystem("save.bin", ios::binary);
     if (saveSystem.is_open())
     {
         if (!Npc::Save())
         {
-            cout << "сохранение не удалось" << endl;
+            cout << "Сохранение не удалось" << endl;
             return false;
         }
         saveSystem.write(reinterpret_cast<const char*>(&intellect), sizeof(intellect));
@@ -134,18 +134,18 @@ bool Wizard::Save()
     }
     else
     {
-        cout << "сохранение не удалось" << endl;
+        cout << "Сохранение не удалось" << endl;
         return false;
     }
 }
-bool Wizard::Load()
+bool TheCaster::Load()
 {
     ifstream loadSystem("save.bin", ios::binary);
     if (loadSystem.is_open())
     {
         if (!Npc::Load())
         {
-            cout << "связь с базой нарушена\nПамять утерена" << endl;
+            cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
             return false;
         }
         loadSystem.read(reinterpret_cast<char*>(&intellect), sizeof(intellect));
@@ -154,41 +154,60 @@ bool Wizard::Load()
     }
     else
     {
-        cout << "связь с базой нарушена\nПамять утерена" << endl;
+        cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
         return false;
     }
 }
-void Wizard::GetInfo() //полиморфизм (перегрузка для метода)
+TheCaster::TheCaster()
+{
+    name = "Заклинатель";
+    health = 1100;
+    damage = 150;
+}
+TheCaster::TheCaster(string name, unsigned int health, float damage)
+{
+    cout << "кастомный конструктор заклинателя" << endl;
+    this->name = name;
+    this->health = health;
+    this->damage = damage;
+}
+void TheCaster::GetArts()
+{
+    cout << name << " взял в руки ";
+}
+void TheCaster::GetInfo() //полиморфизм (перегрузка для метода)
 {
     Npc::GetInfo();
     cout << "Интеллект - " << intellect << endl;
-    cout << "Доступные заклинания в книге заклинаний - ";
+    cout << "Доступные ориджинивые искусства - ";
+   
 
 }
-void Wizard::GetSpellInfo()
+void TheCaster::GetArtInfo()
 {
     for (int i = 0; i < 5; i++)
     {
-        cout << i + 1 << " Заклинание: " << spells[i].GetName()
-            << ", Урон: " << spells[i].GetDamage()
-            << ", Цена: " << spells[i].GetPrice() << endl;
+        cout << i + 1 << " Искусство: " << arts[i].GetName()
+            << ", Урон: " << arts[i].GetDamage()
+            << ", Цена: " << arts[i].GetPrice() << endl;
     }
+
 }
 
-void Wizard::Create()
+void TheCaster::Create()
 {
-    cout << "Вы создали волшебника" << endl;
+    cout << "Вы создали заклинателя" << endl;
     cout << "Введите имя персонажа\t";
     cin >> name;
     GetInfo();
 
 }
-bool Wizard::operator == (const Wizard& wizard) const
+bool TheCaster::operator == (const TheCaster& thecaster) const
 {
-    return ((wizard.damage == this->damage) && (wizard.health == this->health)
-        && (wizard.intellect == this->intellect));
+    return ((thecaster.damage == this->damage) && (thecaster.health == this->health)
+        && (thecaster.intellect == this->intellect));
 }
-void Wizard::operator = (Npc npc)
+void TheCaster::operator = (Npc npc)
 {
     this->name = npc.GetName();
     this->name = npc.GetHealth();
@@ -196,20 +215,20 @@ void Wizard::operator = (Npc npc)
     this->name = npc.GetLvl();
 }
 
-Wizard::~Wizard() //деструктор всегда без аргументов
+TheCaster::~TheCaster() //деструктор всегда без аргументов
 {
-    cout << name << " испустил дух" << endl;
+    cout << name << "\nПоглощен Катастрофой" << endl;
 }
 
-Paladin::Paladin()
+Stormtrooper::Stormtrooper()
 {
-    name = "паладин";
-    health = 25;
-    damage = 12;
-    strenght = 27;
-    intellect = 27;
+    name = "Штурмовик";
+    health = 1700;
+    damage = 60;
+    strenght = 410;
+    intellect = 350;
 }
-void Paladin::GetInfo()
+void Stormtrooper::GetInfo()
 {
     cout << "Имя - " << name << endl;
     cout << "Здоровье - " << health << endl;
@@ -218,24 +237,24 @@ void Paladin::GetInfo()
     cout << "Интеллект - " << intellect << endl;
 }
 
-void Paladin::Create()
+void Stormtrooper::Create()
 {
-    cout << "Вы создали паладина" << endl;
+    cout << "Вы создали штурмовика" << endl;
     cout << "Введите имя персонажа\t";
     cin >> name;
     GetInfo();
     GetWeapons();  
 }
 
-bool Paladin::operator == (const Paladin& paladin) const
+bool Stormtrooper::operator == (const Stormtrooper& stormtrooper) const
 {
-    return (paladin.damage == this->damage) &&
-        (paladin.health == this->health) &&
-        (paladin.strenght == this->strenght) &&
-        (paladin.intellect == this->intellect);
+    return (stormtrooper.damage == this->damage) &&
+        (stormtrooper.health == this->health) &&
+        (stormtrooper.strenght == this->strenght) &&
+        (stormtrooper.intellect == this->intellect);
 }
 
-Paladin& Paladin::operator = (const Npc& npc)
+Stormtrooper& Stormtrooper::operator = (const Npc& npc)
 {
     if (this != &npc)
     {
@@ -243,12 +262,12 @@ Paladin& Paladin::operator = (const Npc& npc)
         this->health = npc.GetHealth();
         this->damage = npc.GetDamage();
         this->lvl = npc.GetLvl();
-        this->strenght = 27;  
-        this->intellect = 27; 
+        this->strenght = 410;  
+        this->intellect = 350; 
     }
     return *this;
 }
-bool Paladin::Save()
+bool Stormtrooper::Save()
 {
     ofstream saveSystem("save.bin", ios::binary);
     if (saveSystem.is_open())
@@ -270,14 +289,14 @@ bool Paladin::Save()
     }
 }
 
-bool Paladin::Load()
+bool Stormtrooper::Load()
 {
     ifstream loadSystem("save.bin", ios::binary);
     if (loadSystem.is_open())
     {
         if (!Npc::Load())
         {
-            cout << "Связь с небом нарушена\nПамять утерена" << endl;
+            cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
             return false;
         }
         loadSystem.read(reinterpret_cast<char*>(&intellect), sizeof(intellect));
@@ -287,7 +306,7 @@ bool Paladin::Load()
     }
     else
     {
-        cout << "Связь с небом нарушена\nПамять утерена" << endl;
+        cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
         return false;
     }
 }
