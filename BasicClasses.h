@@ -2,41 +2,41 @@
 #include "MainClass.h"
 #include "string"
 
-class Warrior : public virtual Npc 
+class Sentinel : public virtual Npc
 {
 protected:  
-    unsigned short strenght{ 31 };
-    string weapons[4] = { "кастет", "дубинка", "клинок", "меч" };
+    unsigned short strenght{ 430 };
+    string weapons[4] = { "Меч", "Пистолет", "Двуручный меч", "Древковое оружие" };
 public:
     bool Save() override;
     bool Load() override;
-    Warrior();
-    Warrior(string name, unsigned int health, float damage);
+    Sentinel();
+    Sentinel(string name, unsigned int health, float damage);
 
     void GetWeapons();
     void GetInfo();
     void Create() override;
 
-    bool operator == (const Warrior& warrior) const;
-    Warrior& operator = (const Npc& npc);
+    bool operator == (const Sentinel& sentinel) const;
+    Sentinel& operator = (const Npc& npc);
 
-    ~Warrior();
+    ~Sentinel();
 };
 
-class Wizard : public virtual Npc
+class TheCaster : public virtual Npc
 {
 
-    class Spell
+    class Art
     {
     protected:
-        string name{ "заклинание" };
+        string name{ "Ориджинивое искусство" };
         unsigned short damage{ 0 };
         unsigned short price{ 0 };
         bool isCurse{ false };
         int timeCast{ 0 };
 
     public:
-        Spell(string name = "заклинание", unsigned short damage = 0,
+        Art(string name = "Ориджинивое искусство", unsigned short damage = 0,
             unsigned short price = 0, bool isCurse = false, int timeCast = 0);
 
         string GetName() const { return name; }
@@ -45,49 +45,39 @@ class Wizard : public virtual Npc
         bool IsCurse() const { return isCurse; }
         int GetTimeCast() const { return timeCast; }
 
-        unsigned short CastSpell();
+        unsigned short CastArt();
     };
 protected:
-    unsigned short intellect = 27;
-    Spell spells[5] = {
-        Spell("Насмешка", 32,52,false,23),
-        Spell("DOMEIN EXPENSION", 1000,99,false,100),
-        Spell("Яд гооргоны", 15,30,false,80),
-        Spell("ахатыбд", 999,0,false,52),
-        Spell("Священый меч эсканор", 100,25,false,0),
+    unsigned short intellect = 380;
+    Art arts[5] = {
+        Art("Сингулярность скорби", 450,150,false,50),
+        Art("Фантомная Кистевая рост", 0,40,false,100),
+        Art("Катализатор Ржавчины", 15,70,true,10),
+        Art("Реверберационыый Кокон", 0,200,false,5),
+        Art("Квантовая нить судьбы", 0,100,false,15),
     };
 public:
-    Wizard()
-    {
-        name = "волшебник";
-        health = 23;
-        damage = 15;
-    }
-    Wizard(string name, unsigned int health, float damage)
-    {
-        cout << "кастомный конструктор волшебника" << endl;
-        this->name = name;
-        this->health = health;
-        this->damage = damage;
-    }
+    TheCaster();
+    TheCaster(string name, unsigned int health, float damage);
+    void GetArts();
     void GetInfo();
-    void GetSpellInfo();
+    void GetArtInfo();
     void Create() override;
-    bool operator == (const Wizard& wizard) const;
+    bool operator == (const TheCaster& thecaster) const;
     void operator = (Npc npc);
     bool Save() override;
     bool Load() override;
-    ~Wizard(); //деструктор всегда без аргументов
+    ~TheCaster(); //деструктор всегда без аргументов
 };
 
-class Paladin : public Warrior, public Wizard
+class Stormtrooper : public Sentinel, public TheCaster
 {
 public:
-    Paladin();
+    Stormtrooper();
     void GetInfo();
     void Create() override;
-    bool operator == (const Paladin& paladin) const;
-    Paladin& operator = (const Npc& npc);
+    bool operator == (const Stormtrooper& stormtrooper) const;
+    Stormtrooper& operator = (const Npc& npc);
     bool Save() override;
     bool Load() override;
 };
