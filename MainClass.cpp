@@ -36,7 +36,7 @@ bool Npc::Save()
     }
     else
     {
-        cout << "сохранение не удалось" << endl;
+        cout << "Тактическое досье не обнаружено. Файл контракта утерян или уничтожен" << endl;
         return false;
     }
     saveSystem.close();
@@ -61,25 +61,25 @@ bool Npc::Load()
     }
     else
     {
-        cout << "связь с базой нарушена\nПамять утерена" << endl;
+        cout << "Биометрические данные не совпадают.\nЛичность не подтверждена" << endl;
         return false;
     }
     loadSystem.close();
 
 };
 
-void Player::Create(unique_ptr<Npc> player)
+void Wayfarer::Create(unique_ptr<Npc> wayfarer)
 {
-    currentCharacter = move(player);
+    currentCharacter = move(wayfarer);
     currentCharacter->Create();
 }
-void Player::Create()
+void Wayfarer::Create()
 {
     if (currentCharacter != nullptr)
         currentCharacter->Create();
 }
 
-Npc* Player::GetCharacter()
+Npc* Wayfarer::GetCharacter()
 {
     return currentCharacter.get();
 }

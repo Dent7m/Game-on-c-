@@ -2,21 +2,21 @@
 
 using namespace std;
 
-Evil::Evil(const std::string& name) {
+ThePriestess::ThePriestess(const std::string& name) {
     this->name = name;
     health = 10;
     damage = 5.0f;  
 }
 
-Evil::Evil(const std::string& name, unsigned int health) : Evil(name) {
+ThePriestess::ThePriestess(const std::string& name, unsigned int health) : ThePriestess(name) {
     this->health = health;
 }
 
-Evil::Evil(const std::string& name, unsigned int health, float damage) : Evil(name, health) {
+ThePriestess::ThePriestess(const std::string& name, unsigned int health, float damage) : ThePriestess(name, health) {
     this->damage = damage;  
 }
 
-void Evil::GetInfo() {
+void ThePriestess::GetInfo() {
     cout << endl;
     cout << "на вас напал " << name << endl;
     if (health >= 0 && damage < 0) {

@@ -58,9 +58,9 @@ enum class SpalloClass
 enum class CharacterType
 {
     UNKNOWN = 0,
-    WARRIOR,
-    WIZARD,
-    PALADIN
+    SENTINEL,
+    THECASTER, 
+    STORMTROOPER 
 };
 
 struct Wapon
@@ -128,7 +128,7 @@ struct Spallo
 /**/
 struct Treasure //по умолчанию все внутри public
 {
-    string name{ "добыча" };
+    string name{ "Ресурс" };
     ValueQuality quality = ValueQuality::мусор;
     unsigned int price{ 0 };
     Treasure(ValueQuality quality)
@@ -136,19 +136,19 @@ struct Treasure //по умолчанию все внутри public
         switch (quality)
         {
         case ValueQuality::мусор:
-            cout << "Плохое качество\n";
+            cout << "Техно-лом\n";
             break;
         case ValueQuality::обычное:
-            cout << "Обычное качество\n";
+            cout << "Стандартный комплект\n";
             break;
         case ValueQuality::редкое:
-            cout << "Хорошое качество\n";
+            cout << "Калибровочное оборудование\n";
             break;
         case ValueQuality::легендарное:
-            cout << "Отличное качество\n";
+            cout << "Наследие Мастера\n";
             break;
         case ValueQuality::мифическое:
-            cout << "Божественное качество\n";
+            cout << "Артефакт Катастрофы\n";
             break;
         default:
             break;
@@ -158,7 +158,7 @@ struct Treasure //по умолчанию все внутри public
 struct Cloth : Treasure //наследование по умолчанию public
 {
     Cloth(ValueQuality quaity) : Treasure(quality) {};
-    string valueSite[5]{ "обувь","перчатки","шлем","нагрудник","пояс" };
+    string valueSite[5]{ "Броня для ног","Броня для рук","Броня для головы","Броня для торса","Комплексная: специальная защита" };
     string site{ NULL };
     unsigned short armor{ 1 };
 };
@@ -206,17 +206,17 @@ unique_ptr<Npc> CreateCharacter(CharacterType type)
     case CharacterType::UNKNOWN:
         return make_unique<Npc>();
         break;
-    case CharacterType::WARRIOR:
-        return make_unique<Warrior>();
+    case CharacterType::SENTINEL:
+        return make_unique<Sentinel>();
         break;
-    case CharacterType::WIZARD:
-        return make_unique<Wizard>();
+    case CharacterType::THECASTER:
+        return make_unique<TheCaster>();
         break;
-    case CharacterType::PALADIN:
-        return make_unique<Paladin>();
+    case CharacterType::STORMTROOPER:
+        return make_unique<Stormtrooper>();
         break;
     default:
-        invalid_argument("Неизветсный тип персонажа");
+        invalid_argument("Неизвестное досье");
         break;
     }
 }
@@ -259,27 +259,27 @@ int main()
     wapon.price = 50;
     cout << wapon.name << '\n' << wapon.site << '\n' << wapon.damage << '\n' << wapon.price << '\n';*/
 
-    Player* player = new Player();
+    Wayfarer* wayfarer = new Wayfarer();
 
-    cout << "Привет, путник\nПрисядь у костра и расскажи о себе\n";
-    cout << "Ты впервые тут? (1 - новый персонаж, 2 - загрузить)\n";
-    if (TestChoise(2, "Наверное ты ошибся, повтори снова\n"))
+    cout << "Добро пожаловать в программу реабилитации/подготовки.\n";
+    cout << "Зарегестрируйте кодовое имя...\n(1 - Новое досье, 2 - Загрузить досье)\n";
+    if (TestChoise(2, "Нулевой отклик от Neural Link.\nПопытка повторного подключения"))
     {
-        cout << "Расскажи о своих навыках\n\t1 - Воин\n\t2 - Волшебник\n\t3 - Паладин\n";
+        cout << "Выберите тактическую архетип для нового актива РИИ\n\t1 - Страж\n\t2 - Заклинатель\n\t3 - Штурмовик\n";
         unique_ptr<Npc> character;
-        switch (TestChoise(3, "Такого еще не было в наших краях\nНе мог бы ты повторить\n"))
+        switch (TestChoise(3, "Хм... Пусто. Совсем пусто. Даже пылинок данных нет.\nВы уверены, что работали на нас?\n"))
         {
         case 1:
-            character = CreateCharacter(CharacterType::WARRIOR);
+            character = CreateCharacter(CharacterType::SENTINEL);
             break;
         case 2:
-            character = CreateCharacter(CharacterType::WIZARD);
+            character = CreateCharacter(CharacterType::THECASTER);
             break;
         case 3:
-            character = CreateCharacter(CharacterType::PALADIN);
+            character = CreateCharacter(CharacterType::STORMTROOPER);
             break;
         }
-        player->Create(move(character));
+        wayfarer->Create(move(character));
     }
     else
     {
